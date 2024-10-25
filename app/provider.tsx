@@ -37,6 +37,8 @@ if (typeof window !== "undefined") {
 export const availableConnectors = [
   new InjectedConnector({ options: { id: "braavos", name: "Braavos" } }),
   new InjectedConnector({ options: { id: "argentX", name: "Argent X" } }),
+  // Added okxwallet
+  new InjectedConnector({ options: { id: "okxwallet", name: "Okx Wallet" } }),
   new WebWalletConnector({
     url:
       getCurrentNetwork() === "TESTNET"
