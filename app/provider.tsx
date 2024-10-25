@@ -49,6 +49,8 @@ export const availableConnectors = [
     chainId: constants.NetworkName.SN_MAIN,
     icons: ["https://starknet.quest/visuals/starknetquestLogo.svg"],
   }),
+  
+  new InjectedConnector({ options: { id: "keplr", name: "Keplr" } })
 ];
 
 export function Providers({ children }: { children: React.ReactNode }) {
