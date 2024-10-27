@@ -207,6 +207,7 @@ export default function Page({ params }: AddressOrDomainProps) {
     let debt: DebtStatus = { hasDebt: false, tokens: [] };
 
     for (const dapp of userDapps) {
+      if (!dapp.products[0]) { return; }
       for (const position of dapp.products[0].positions) {
         for (const tokenAddress of Object.keys(position.totalBalances)) {
           const tokenBalance = Number(position.totalBalances[tokenAddress]);
@@ -222,12 +223,12 @@ export default function Page({ params }: AddressOrDomainProps) {
 
   const handleDebt = async (protocolsMap: ChartItemMap, userDapps: ArgentUserDapp[], tokens: ArgentTokenMap) => {
     const debtStatus = userHasDebt(userDapps);
-    if (!debtStatus.hasDebt) { return; }
+    if (!debtStatus || !debtStatus.hasDebt) { return; }
 
     for await (const debt of debtStatus.tokens) {
       let value = Number(protocolsMap[debt.dappId].itemValue);
       value += await calculateTokenPrice(
-        debt.tokenAddress, 
+        debt.tokenAddress,
         tokenToDecimal(debt.tokenBalance.toString(), 
         tokens[debt.tokenAddress].decimals), 
         "USD"
@@ -265,6 +266,7 @@ export default function Page({ params }: AddressOrDomainProps) {
       if (protocolsMap[userDapp.dappId]) { continue; } // Ignore entry if already present in the map
 
       let protocolBalance = 0;
+      if (!userDapp.products[0]) { return; }
       for await (const position of userDapp.products[0].positions) {
         for await (const tokenAddress of Object.keys(position.totalBalances)) {
           protocolBalance += await calculateTokenPrice(
@@ -285,7 +287,7 @@ export default function Page({ params }: AddressOrDomainProps) {
   }
 
   const sortProtocols = (protocolsMap: ChartItemMap) => {
-    return Object.values(protocolsMap).toSorted((a, b) => parseFloat(b.itemValue) - parseFloat(a.itemValue));
+    return Object.values(protocolsMap).sort((a, b) => parseFloat(b.itemValue) - parseFloat(a.itemValue));
   }
 
   const handleExtraProtocols = (sortedProtocols: ChartItem[]) => {
@@ -513,7 +515,7 @@ export default function Page({ params }: AddressOrDomainProps) {
 
       {/* Portfolio charts */}
       <div className={styles.dashboard_portfolio_summary_container}>
-        {loadingProtocols ? (
+        {loadingProtocols ? ( // Change for corresponding state
           <PortfolioSummarySkeleton />
         ) : (
           <PortfolioSummary 
@@ -521,7 +523,6 @@ export default function Page({ params }: AddressOrDomainProps) {
             data={portfolioAssets}
             totalBalance={portfolioAssets.reduce((sum, item) => sum + Number(item.itemValue), 0)}
             isProtocol={false}
-            isLoading={false}
           />
         )}
         {loadingProtocols ? (
@@ -532,7 +533,6 @@ export default function Page({ params }: AddressOrDomainProps) {
             data={portfolioProtocols} 
             totalBalance={portfolioProtocols.reduce((sum, item) => sum + Number(item.itemValue), 0)}
             isProtocol={true}
-            isLoading={loadingProtocols}
           />
         )}
       </div>

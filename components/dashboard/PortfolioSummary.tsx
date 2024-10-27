@@ -15,11 +15,10 @@ type PortfolioSummaryProps = {
   title: string,
   data: ChartItem[],
   totalBalance: number,
-  isProtocol: boolean,
-  isLoading: boolean
+  isProtocol: boolean
 }
 
-const ChartItem: FunctionComponent<ChartItem> = ({
+const ChartEntry: FunctionComponent<ChartItem> = ({
   color,
   itemLabel,
   itemValue,
@@ -40,6 +39,7 @@ const ChartItem: FunctionComponent<ChartItem> = ({
 };
 
 const PortfolioSummary: FunctionComponent<PortfolioSummaryProps> = ({ title, data, totalBalance, isProtocol }) => {
+  
   const normalizeMinValue = (data: ChartItem[], minPercentage: number) => {
     return data.map(entry => 
       Number(entry.itemValue) < totalBalance * minPercentage ? 
@@ -100,7 +100,7 @@ const PortfolioSummary: FunctionComponent<PortfolioSummaryProps> = ({ title, dat
       <div className={styles.dashboard_portfolio_summary_info}>
         <div className="flex flex-col justify-between w-10/12 md:w-8/12 h-fit">
           {data.map((item, id) => (
-            <ChartItem key={id} {...item} />
+            <ChartEntry key={id} {...item} />
           ))}
         </div>
         <div className="w-full mb-4 md:w-3/12 md:mb-0">

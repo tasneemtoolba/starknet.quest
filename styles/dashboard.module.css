@@ -389,7 +389,7 @@
     }
 
     .dashboard_portfolio_summary {
-        width: var(--dashboard-max-width);
+        width: 90%;
     }
 
     .dashboard_portfolio_summary_info {
