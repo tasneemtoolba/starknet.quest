@@ -30,7 +30,6 @@
     width: 100%;
 }
 
-
 .profileCardLoading {
     position: absolute;
     top: 0;
@@ -66,8 +65,6 @@
     width: 2rem;
 }
 
-
-
 .blur1 {
     display: none;
     position: absolute;
@@ -87,7 +84,6 @@
 .dashboard_profile_card {
     display: flex;
     width: 100%;
-    /* max-width: var(--dashboard-max-width); */
     padding: 1.5rem 2.5rem;
     background: linear-gradient(var(--background600), transparent);
     align-items: center;
@@ -186,8 +182,6 @@
     align-items: center;
     gap: 5px;
 }
-
-
 
 .right_middle {
     width: 100%;
@@ -338,7 +332,7 @@
     border-radius: 8px;
     padding: 24px;
     width: 100%;
-    max-height: 500px;
+    height: 200px;
     display: flex;
     flex-direction: row;
     background-color: var(--menu-background);
@@ -367,7 +361,6 @@
     .second_header {
         margin-bottom: 0;
     }
-
 
     .dashboard_wrapper {
         padding: 20px;
@@ -399,6 +392,12 @@
         width: var(--dashboard-max-width);
     }
 
+    .dashboard_portfolio_summary_info {
+        flex-direction: column-reverse;
+        align-items: center;
+        height: fit-content;
+    }
+
     .quests_container {
         display: flex;
         flex-direction: column;
@@ -420,14 +419,10 @@
         margin-bottom: 10px;
     }
 
-
-
     .center {
         gap: 0;
         padding-left: unset;
     }
-
-
 
     .address_div {
         justify-content: center;

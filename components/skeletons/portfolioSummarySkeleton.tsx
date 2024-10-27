@@ -1,6 +1,5 @@
 import React, { FunctionComponent } from "react";
 import { Skeleton } from "@mui/material";
-import styles from "@styles/dashboard.module.css";
 
 const PortfolioSummarySkeleton: FunctionComponent = () => {
   return (
