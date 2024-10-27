@@ -12,7 +12,7 @@
     width: 100%;
     justify-content: center;
     margin-top: 12vh;
-    max-width: 950px;
+    max-width: var(--dashboard-max-width);
     margin-bottom: 24px;
 }
 
@@ -20,7 +20,7 @@
     display: flex;
     width: 100%;
     margin-top: 12vh;
-    max-width: 950px;
+    max-width: var(--dashboard-max-width);
 }
 
 .profileCardSkeleton {
@@ -42,7 +42,7 @@
     height: 30vh;
     width: 100%;
     margin-top: 6vh;
-    max-width: 950px;
+    max-width: var(--dashboard-max-width);
 }
 
 .dashboardLoading {
@@ -56,7 +56,7 @@
     display: flex;
     width: 100%;
     margin-top: 6vh;
-    max-width: 950px;
+    max-width: var(--dashboard-max-width);
 }
 
 .questsCompletedTitleLoading {
@@ -87,7 +87,7 @@
 .dashboard_profile_card {
     display: flex;
     width: 100%;
-    max-width: 950px;
+    /* max-width: var(--dashboard-max-width); */
     padding: 1.5rem 2.5rem;
     background: linear-gradient(var(--background600), transparent);
     align-items: center;
@@ -283,7 +283,7 @@
     flex-direction: row;
     flex-wrap: wrap;
     gap: 2rem;
-    max-width: 950px;
+    max-width: var(--dashboard-max-width);
     margin-bottom: 3rem;
     justify-content: space-between;
 }
@@ -293,7 +293,7 @@
     flex-direction: column;
     width: 100%;
     margin-top: 6vh;
-    max-width: 950px;
+    max-width: var(--dashboard-max-width);
     margin-bottom: 24px;
 }
 
@@ -316,6 +316,34 @@
     font-family: 'Sora-Bold';
     font-size: 14px;
     text-align: center;
+}
+
+.dashboard_portfolio_summary_container {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    width: 100%;
+    margin-top: 6vh;
+    max-width: var(--dashboard-max-width);
+    margin-bottom: 24px;
+}
+
+.dashboard_portfolio_summary {
+    width: 47%;
+}
+
+.dashboard_portfolio_summary_info {
+    border-radius: 8px;
+    padding: 24px;
+    width: 100%;
+    max-height: 500px;
+    display: flex;
+    flex-direction: row;
+    background-color: var(--menu-background);
+    justify-content: space-between;
+    align-items: flex-start;
+    align-self: stretch;
+    border: solid 1px transparent;
 }
 
 @media (max-width: 768px) {
@@ -369,7 +397,7 @@
         flex-direction: row;
         flex-wrap: wrap;
         gap: 2rem;
-        max-width: 950px;
+        max-width: var(--dashboard-max-width);
         margin-bottom: 3rem;
         margin-top: 1rem;
         margin-top: 3rem;

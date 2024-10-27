@@ -6,7 +6,7 @@ import Typography from "@components/UI/typography/typography";
 import Button from "@components/UI/button";
 import { CDNImg } from "@components/cdn/image";
 import { TEXT_TYPE } from "@constants/typography";
-import AppIcon from "./appIcon";
+import AppIcon from "../UI/appIcon";
 import TokenIcon from "./tokenIcon";
 import { useNotification } from "@context/NotificationProvider";
 import Loading from "@app/loading";

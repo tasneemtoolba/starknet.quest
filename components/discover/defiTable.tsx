@@ -28,7 +28,7 @@ import {
   STABLES,
   TOKEN_OPTIONS,
 } from "@constants/defi";
-import AppIcon from "./appIcon";
+import AppIcon from "../UI/appIcon";
 import ActionText from "./actionText";
 import DownIcon from "@components/UI/iconsComponents/icons/downIcon";
 import UpIcon from "@components/UI/iconsComponents/icons/upIcon";

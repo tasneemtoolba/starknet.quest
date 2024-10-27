@@ -36,3 +36,12 @@ export function gweiToEth(gwei: string): string {
 
   return ethBigInt.toString();
 }
+
+export function tokenToDecimal(tokenValue: string, decimals: number) {
+  const tokenValueBigInt = new Big(tokenValue);
+  const scaleFactor = new Big(10 ** decimals);
+
+  const tokenDecimal = tokenValueBigInt.div(scaleFactor).round(5);
+
+  return tokenDecimal;
+}
