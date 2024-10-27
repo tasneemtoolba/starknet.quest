@@ -58,6 +58,7 @@ type DebtStatus = {
 export default function Page({ params }: AddressOrDomainProps) {
   const router = useRouter();
   const addressOrDomain = params.addressOrDomain;
+  const { showNotification } = useNotification();
   const { address } = useAccount();
   const { starknetIdNavigator } = useContext(StarknetIdJsContext);
   const [initProfile, setInitProfile] = useState(false);
@@ -81,14 +82,6 @@ export default function Page({ params }: AddressOrDomainProps) {
   const [claimableQuests, setClaimableQuests] = useState<Boost[]>([]);
   const [portfolioAssets, setPortfolioAssets] = useState<ChartItem[]>([]);
   const [portfolioProtocols, setPortfolioProtocols] = useState<ChartItem[]>([]);
-  const portfolioProtocolColors = [
-    "#278015",
-    "#23F51F",
-    "#DEFE5C",
-    "#9EFABB",
-    "#F4FAFF"
-  ];
-  const { showNotification } = useNotification();
   const [loadingProtocols, setLoadingProtocols] = useState(true);
 
   const handleChangeTab = useCallback(
@@ -307,13 +300,19 @@ export default function Page({ params }: AddressOrDomainProps) {
   }
 
   const assignProtocolColors = (sortedProtocols: ChartItem[]) => {
+    const portfolioProtocolColors = [
+      "#278015",
+      "#23F51F",
+      "#DEFE5C",
+      "#9EFABB",
+      "#F4FAFF"
+    ];
     sortedProtocols.forEach((protocol, index) => {
       protocol.color = portfolioProtocolColors[index];
     });
   }
 
   const fetchPortfolioProtocols = useCallback(async (addr: string) => {
-    // addr = '0x05f1f8de723d8117daa26ec24320d0eacabc53a3d642acb0880846486e73283a';
     let dapps: ArgentDappMap = {};
     let tokens: ArgentTokenMap = {};
     let userTokens: ArgentUserToken[] = [];
@@ -536,7 +535,6 @@ export default function Page({ params }: AddressOrDomainProps) {
             isLoading={loadingProtocols}
           />
         )}
-        
       </div>
 
       {/* Completed Quests */}

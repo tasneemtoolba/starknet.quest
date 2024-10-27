@@ -1,10 +1,11 @@
 import React, { FunctionComponent, useCallback, useContext, useEffect, useState } from "react";
-import AppIcon from "@components/UI/appIcon";
 import { TEXT_TYPE } from "@constants/typography";
 import Typography from "@components/UI/typography/typography";
 import { Doughnut } from "react-chartjs-2";
 import styles from "@styles/dashboard.module.css";
-import { Chart, ArcElement, DoughnutController, Tooltip } from 'chart.js';
+import { Chart, ArcElement, DoughnutController, Tooltip, ChartEvent, ActiveElement, TooltipItem, ChartOptions } from 'chart.js';
+import { CDNImg } from "@components/cdn/image";
+import starknetIcon from "../../public/starknet/favicon.ico";
 import cursor from '../../public/icons/cursor.png';
 import cursorPointer from '../../public/icons/pointer-cursor.png';
 
@@ -43,19 +44,52 @@ const PortfolioSummary: FunctionComponent<PortfolioSummaryProps> = ({ title, dat
     return data.map(entry => Number(entry.itemValue) < totalBalance * minPercentage ? (totalBalance * minPercentage).toFixed(2) : entry.itemValue)
   }
 
+  const chartOptions: ChartOptions<"doughnut"> = {
+    elements: {
+      arc: {
+        borderAlign: "inner",
+        borderRadius: 3,
+        spacing: 1,
+        hoverOffset: 1,
+        hoverBorderColor: "white",
+        hoverBorderWidth: 1
+      }
+    },
+    responsive: true,
+    maintainAspectRatio: false,
+    plugins: {
+      tooltip: {
+        position: "nearest",
+        xAlign: "center",
+        yAlign: "top",
+        callbacks: {
+          label: function (tooltipItem: TooltipItem<"doughnut">) {
+            return `${data[tooltipItem.dataIndex].itemValueSymbol}${data[tooltipItem.dataIndex].itemValue}`;
+          }
+        }
+      }
+    },
+    onHover: (event: ChartEvent, element: ActiveElement[]) => {
+      let canvas = event.native?.target as HTMLCanvasElement;
+      canvas.style.cursor = element[0] ? `url(${cursorPointer.src}), pointer` : `url(${cursor.src}), auto`;
+    }
+  }
+
   return data.length > 0 ? (
     <div className={styles.dashboard_portfolio_summary}>
-      <div className="flex flex-row w-full justify-between items-center mb-4">
-        <Typography type={TEXT_TYPE.BUTTON_LARGE} style={{ textAlign: "left", width: "fit-content", lineHeight: "2.75rem" }}>
-          {title}
-        </Typography>
+      <div className="flex flex-col md:flex-row w-full justify-between items-center mb-4">
+        <div className="mb-4 md:mb-1">
+          <Typography type={TEXT_TYPE.BUTTON_LARGE} style={{ textAlign: "left", width: "fit-content"}}>
+            {title}
+          </Typography>
+        </div>
         {isProtocol ?
           <button
             onClick={() => { }}
-            className="flex flex-row items-center justify-evenly gap-4 bg-white rounded-xl modified-cursor-pointer h-min lg:mt-2 mt-8 px-6 py-1.5"
+            className="flex items-center justify-evenly gap-1.5 lg:gap-4 bg-white rounded-xl modified-cursor-pointer h-min px-6 py-2 mb-4 md:mb-0"
           >
-            <AppIcon app="starknet" className="w-5 h-5" />
-            <Typography type={TEXT_TYPE.BUTTON_SMALL} color="background">
+            <CDNImg width={20} src={starknetIcon.src} loading="lazy" />
+            <Typography type={TEXT_TYPE.BUTTON_SMALL} color="background" style={{ lineHeight: "1rem" }}>
               Claim your reward
             </Typography>
           </button>
@@ -89,36 +123,7 @@ const PortfolioSummary: FunctionComponent<PortfolioSummaryProps> = ({ title, dat
                 borderWidth: 1,
               }],
             }}
-            options={{
-              elements: {
-                arc: {
-                  borderAlign: "inner",
-                  borderRadius: 3,
-                  spacing: 1,
-                  hoverOffset: 1,
-                  hoverBorderColor: "white",
-                  hoverBorderWidth: 1
-                }
-              },
-              responsive: true,
-              maintainAspectRatio: false,
-              plugins: {
-                tooltip: {
-                  position: "nearest",
-                  xAlign: "center",
-                  yAlign: "top",
-                  callbacks: {
-                    label: function (tooltipItem) {
-                      return `${data[tooltipItem.dataIndex].itemValueSymbol}${data[tooltipItem.dataIndex].itemValue}`;
-                    }
-                  }
-                }
-              },
-              onHover: (event, element) => {
-                let canvas = event.native?.target as HTMLCanvasElement;
-                canvas.style.cursor = element[0] ? `url(${cursorPointer.src}), pointer` : `url(${cursor.src}), auto`;
-              }
-            }}
+            options={chartOptions}
           />
         </div>
       </div>

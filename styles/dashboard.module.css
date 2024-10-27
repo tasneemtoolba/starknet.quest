@@ -322,6 +322,7 @@
     display: flex;
     flex-direction: row;
     justify-content: space-between;
+    align-items: flex-end;
     width: 100%;
     margin-top: 6vh;
     max-width: var(--dashboard-max-width);
@@ -330,6 +331,7 @@
 
 .dashboard_portfolio_summary {
     width: 47%;
+    margin-bottom: 6vh;
 }
 
 .dashboard_portfolio_summary_info {
@@ -385,6 +387,16 @@
 
     .accountCreationDate {
         padding-bottom: 10px;
+    }
+
+    .dashboard_portfolio_summary_container {
+        flex-direction: column;
+        align-items: center;
+        width: var(--dashboard-max-width);
+    }
+
+    .dashboard_portfolio_summary {
+        width: var(--dashboard-max-width);
     }
 
     .quests_container {
