@@ -53,12 +53,12 @@ export const fetchUserDapps = async (walletAddress: string) => {
 
 export const calculateTokenPrice = async (
   tokenAddress: string,
-  tokenAmount: Big.Big,
+  tokenAmount: string,
   currency: "USD" | "EUR" | "GBP" = "USD"
 ) => {
   const data = await fetchData<ArgentTokenValue>(`${API_BASE}/${API_VERSION}/tokens/prices/${tokenAddress}?chain=starknet&currency=${currency}`);
   try {
-    return tokenAmount.mul(data.ccyValue).toNumber();
+    return Number(tokenAmount) * Number(data.ccyValue);
   } catch (err) {
     console.log("Error while calculating token price", err);
     throw err;

@@ -38,11 +38,8 @@ export function gweiToEth(gwei: string): string {
 }
 
 export function tokenToDecimal(tokenValue: string, decimals: number) {
-  if (!tokenValue || isNaN(Number(tokenValue))) {
-    return new Big(0);
-  }
-  if (decimals < 0) {
-    throw new Error("Decimals must be non-negative");
+  if (!tokenValue || isNaN(Number(tokenValue)) || isNaN(Number(decimals)) || decimals < 0) {
+    return "0";
   }
 
   const tokenValueBigInt = new Big(tokenValue);
@@ -50,5 +47,5 @@ export function tokenToDecimal(tokenValue: string, decimals: number) {
 
   const tokenDecimal = tokenValueBigInt.div(scaleFactor).round(5);
 
-  return tokenDecimal;
+  return tokenDecimal.toString();
 }

@@ -207,7 +207,7 @@ export default function Page({ params }: AddressOrDomainProps) {
     let debt: DebtStatus = { hasDebt: false, tokens: [] };
 
     for (const dapp of userDapps) {
-      if (!dapp.products[0]) { return; }
+      if (!dapp.products[0]) { continue; }
       for (const position of dapp.products[0].positions) {
         for (const tokenAddress of Object.keys(position.totalBalances)) {
           const tokenBalance = Number(position.totalBalances[tokenAddress]);

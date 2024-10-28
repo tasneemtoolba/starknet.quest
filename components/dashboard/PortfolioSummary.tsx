@@ -15,7 +15,8 @@ type PortfolioSummaryProps = {
   title: string,
   data: ChartItem[],
   totalBalance: number,
-  isProtocol: boolean
+  isProtocol: boolean,
+  minSlicePercentage?: number
 }
 
 const ChartEntry: FunctionComponent<ChartItem> = ({
@@ -38,12 +39,12 @@ const ChartEntry: FunctionComponent<ChartItem> = ({
   );
 };
 
-const PortfolioSummary: FunctionComponent<PortfolioSummaryProps> = ({ title, data, totalBalance, isProtocol }) => {
-  
-  const normalizeMinValue = (data: ChartItem[], minPercentage: number) => {
+const PortfolioSummary: FunctionComponent<PortfolioSummaryProps> = ({ title, data, totalBalance, isProtocol, minSlicePercentage = 0.05 }) => {
+
+  const normalizeMinValue = (data: ChartItem[]) => {
     return data.map(entry => 
-      Number(entry.itemValue) < totalBalance * minPercentage ? 
-      (totalBalance * minPercentage).toFixed(2) : 
+      Number(entry.itemValue) < totalBalance * minSlicePercentage ? 
+      (totalBalance * minSlicePercentage).toFixed(2) : 
       entry.itemValue
     );
   }
@@ -109,7 +110,7 @@ const PortfolioSummary: FunctionComponent<PortfolioSummaryProps> = ({ title, dat
               labels: data.map(entry => entry.itemLabel),
               datasets: [{
                 label: '',
-                data: normalizeMinValue(data, .05),
+                data: normalizeMinValue(data),
                 backgroundColor: data.map(entry => entry.color),
                 borderColor: data.map(entry => entry.color),
                 borderWidth: 1,
