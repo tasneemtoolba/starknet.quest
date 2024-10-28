@@ -150,6 +150,29 @@ const QuizStep: FunctionComponent<QuizStepProps> = ({
     setSteps(updatedSteps);
   }, [steps]);
 
+  const handleDeleteQuestion = useCallback(
+    (questionIndex: number) => {
+      const updatedSteps = steps.map((step, i) => {
+        if (i === index && step.type === "Quiz") {
+          const updatedQuestions = step.data.questions.filter(
+            (question: typeof QuizQuestionDefaultInput, qIndex: number) =>
+              qIndex !== questionIndex
+          );
+          return {
+            ...step,
+            data: {
+              ...step.data,
+              questions: updatedQuestions,
+            },
+          };
+        }
+        return step;
+      });
+      setSteps(updatedSteps);
+    },
+    [steps]
+  );
+
   return (
     <div className="flex flex-col gap-8 pt-2">
       <div className="flex flex-col gap-1">
