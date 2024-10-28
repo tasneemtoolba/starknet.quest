@@ -7,6 +7,7 @@ import { TEXT_TYPE } from "@constants/typography";
 import InputCard from "../inputCard";
 import Dropdown from "@components/UI/dropdown";
 import { SelectChangeEvent } from "@mui/material";
+import { FaTrash } from "react-icons/fa";
 
 type QuizStepProps = {
   handleTasksInputChange: (
@@ -249,13 +250,19 @@ const QuizStep: FunctionComponent<QuizStepProps> = ({
           ) => (
             <InputCard key={"questionCategory-" + questionIndex}>
               <div className="flex flex-col gap-1">
-                <TextInput
-                  onChange={(e) => handleQuestionChange(e, questionIndex)}
-                  value={eachQuestion.question}
-                  name="question"
-                  label={`Describe your question`}
-                  placeholder={`Question ${questionIndex + 1}`}
-                />
+                <div className="flex justify-between items-center">
+                  <TextInput
+                    onChange={(e) => handleQuestionChange(e, questionIndex)}
+                    value={eachQuestion.question}
+                    name="question"
+                    label={`Describe your question`}
+                    placeholder={`Question ${questionIndex + 1}`}
+                  />
+                  <FaTrash
+                    onClick={() => handleDeleteQuestion(questionIndex)}
+                    className="text-red-500 cursor-pointer"
+                  />
+                </div>
                 <Typography type={TEXT_TYPE.BODY_MICRO} color="textGray">
                   Write the question&apos;s description.
                 </Typography>
