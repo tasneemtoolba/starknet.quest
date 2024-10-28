@@ -3,6 +3,7 @@ import {
   decimalToHex,
   stringToHex,
   gweiToEth,
+  tokenToDecimal
 } from "@utils/feltService";
 
 describe("Should test hexToDecimal function", () => {
@@ -73,5 +74,24 @@ describe("Should test gweiToEth function", () => {
 
   it("Should return 0 if the argument is an empty string", () => {
     expect(gweiToEth("")).toEqual("0");
+  });
+});
+
+describe("Should test tokenToDecimal function", () => {
+  it("Should return the right decimal value from a given token with dynamic decimals", () => {
+    expect(tokenToDecimal("113623892493328485", 18)).toEqual("0.11362");
+    expect(tokenToDecimal("3477473", 6)).toEqual("3.47747");
+  });
+
+  it("Should return 0 if the value is an empty string", () => {
+    expect(tokenToDecimal("", 6)).toEqual("0");
+  });
+
+  it("Should return 0 if the decimal is not a valid number", () => {
+    expect(tokenToDecimal("8943032", 'hello')).toEqual("0");
+  });
+
+  it("Should return 0 if the decimal is a negative number", () => {
+    expect(tokenToDecimal("22341256543", -5)).toEqual("0");
   });
 });

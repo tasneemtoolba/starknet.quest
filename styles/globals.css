@@ -34,6 +34,7 @@
   --white: #fff;
   --textGray: #a6a5a7;
   --transparent: transparent;
+  --dashboard-max-width: clamp(320px, 90%, 1500px);
 }
 
 html,

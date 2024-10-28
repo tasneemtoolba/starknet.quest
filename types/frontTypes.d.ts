@@ -347,3 +347,10 @@ type Call = {
   calldata: string[];
   entrypoint: string;
 };
+
+type ChartItem = {
+  color: string,
+  itemLabel: string,
+  itemValue: string,
+  itemValueSymbol: string
+}

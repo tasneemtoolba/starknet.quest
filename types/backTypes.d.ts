@@ -528,3 +528,101 @@ export type Call = {
   calldata: string[];
   entrypoint: string;
 };
+
+export type ArgentDappLink = {
+  name: string;
+  url: string;
+  position: number;
+};
+
+export type ArgentDappContract = {
+  address: string;
+  chain: string;
+};
+
+export type ArgentDapp = {
+  dappId: string;
+  name: string;
+  description: string;
+  logoUrl: string;
+  dappUrl?: string;
+  inAppBrowserCompatible: boolean;
+  argentVerified: boolean;
+  links: ArgentDappLink[];
+  contracts: ArgentDappContract[];
+  categories: string[];
+  supportedApps?: string[];
+  executeFromOutsideAllowed: boolean;
+};
+
+export type ArgentDappMap = {
+  [dappId: string]: ArgentDapp;
+};
+
+export type ArgentToken = {
+  id: number;
+  address: string;
+  name: string;
+  tradable: boolean;
+  symbol: string;
+  decimals: number;
+  sendable: boolean;
+  category: string;
+  refundable: boolean;
+  popular: boolean;
+  listed: boolean;
+  dappId?: string;
+};
+
+export type ArgentTokenMap = {
+  [address: string]: ArgentToken;
+};
+
+export type ArgentDappPositionTotalBalances = {
+  [address: string]: string;
+};
+
+export type ArgentDappPositionData = {
+  apy: string;
+  group?: number;
+  collateral: boolean;
+  debt: boolean;
+  lending: boolean;
+};
+
+export type ArgentDappPosition = {
+  id: string;
+  investmentId?: string;
+  tokenAddress: string;
+  tokenAmount: string;
+  totalBalances: ArgentDappPositionTotalBalances;
+  data: ArgentDappPositionData;
+};
+
+export type ArgentDappProduct = {
+  productId?: string;
+  name: string;
+  manageUrl: string;
+  groups?: { [key: string]: { healthRatio: string } };
+  positions: ArgentDappPosition[];
+  type: string;
+};
+
+export type ArgentUserDapp = {
+  dappId: string;
+  products: ArgentDappProduct[];
+};
+
+export type ArgentTokenValue = {
+  pricingId: number;
+  date: number;
+  ethValue: string;
+  ccyValue: string;
+  ethDayChange: string;
+  ccyDayChange: string;
+}
+
+export type ArgentUserToken = {
+  tokenAddress: string;
+  tokenBalance: string; 
+}
