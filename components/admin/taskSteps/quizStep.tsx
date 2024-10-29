@@ -152,12 +152,34 @@ const QuizStep: FunctionComponent<QuizStepProps> = ({
     setSteps(updatedSteps);
   }, [steps]);
 
-  const handleDeleteQuestion = (questionId: number, quizId: number) => {
-    AdminService.deleteQuizQuestion({
-      id: questionId,
-      quiz_id: quizId,
-    });
-  };
+  const handleDeleteQuestion = useCallback(
+    (questionId: number, quizId: number, questionIndex: number) => {
+      AdminService.deleteQuizQuestion({
+        id: questionId,
+        quiz_id: quizId,
+      });
+  
+      const updatedSteps = steps.map((step, i) => {
+        if (i === index && step.type === "Quiz") {
+          const updatedQuestions = step.data.questions.filter(
+            (_: any, qIndex: number) => qIndex !== questionIndex
+          );
+          return {
+            ...step,
+            data: {
+              ...step.data,
+              questions: updatedQuestions,
+            },
+          };
+        }
+        return step;
+      });
+  
+      setSteps(updatedSteps);
+    },
+    [steps]
+  );
+  
 
   return (
     <div className="flex flex-col gap-8 pt-2">
@@ -244,7 +266,7 @@ const QuizStep: FunctionComponent<QuizStepProps> = ({
                     placeholder={`Question ${questionIndex + 1}`}
                   />
                   <FaTrash
-                    onClick={() => handleDeleteQuestion(eachQuestion.id, step.data.quiz_id)}
+                    onClick={() => handleDeleteQuestion(eachQuestion.id, step.data.quiz_id, questionIndex)}
                     className="text-red-500 cursor-pointer"
                   />  
                 </div>
