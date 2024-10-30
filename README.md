@@ -49,6 +49,8 @@ npm i
 npm run dev
 ```
 
+If you faced problems with ```npm i ```, you may try ```npm i --force``` instead
+
 You should see something like this:
 
 ```sh
