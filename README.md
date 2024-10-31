@@ -49,7 +49,12 @@ npm i
 npm run dev
 ```
 
-If you faced problems with ```npm i ```, you may try ```npm i --force``` instead
+If you encounter installation issues, try these steps:
+Clear npm cache: `npm cache clean --force`
+Delete node_modules: `rm -rf node_modules`
+Delete package-lock.json: `rm package-lock.json`
+Retry installation: `npm i`
+If issues persist, you can try `npm i --legacy-peer-deps` or `npm i --force` as a last resort. Note that using these flags may lead to dependency conflicts.
 
 You should see something like this:
 
